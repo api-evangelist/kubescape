@@ -1,0 +1,63 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Kubescape
+providerId: kubescape
+created: '2026-07-11'
+modified: '2026-07-11'
+reconciled: false
+tags:
+- Kubernetes Security
+- Cloud Native Security
+- Container Security
+- Rate Limiting
+- Quotas
+description: >-
+  Neither the open-source Kubescape tool nor the hosted ARMO Platform Customer
+  API publishes fixed numeric request-rate limits. For the open-source CLI and
+  in-cluster Operator, scan throughput is bounded only by your own cluster and
+  host resources. For the hosted ARMO Platform Customer API
+  (https://api.armosec.io/api/v1), the effective ceiling is the plan's worker-
+  node / data-retention allowance rather than a documented per-minute request
+  cap; expect standard HTTP 429 throttling and Retry-After handling on the
+  managed service.
+notes: >-
+  Numeric per-account or per-endpoint limits for the ARMO Platform Customer API
+  are not documented as of the review date. The open-source in-cluster component
+  APIs run inside your cluster and are limited by your own resources. Verify any
+  managed-service quotas with ARMO during reconciliation.
+sources:
+- https://hub.armosec.io/reference/customer-api
+- https://www.armosec.io/pricing/
+- https://github.com/kubescape/kubescape
+responseCodes:
+  throttled: 429
+limits:
+- name: Customer API Requests
+  scope: account
+  metric: requests
+  limit: not published
+  notes: No fixed numeric request-rate limit is documented for the ARMO Platform Customer API.
+- name: Worker Node Allowance
+  scope: account
+  metric: nodes
+  limit: per plan
+  notes: ARMO Platform meters the number of protected worker nodes per plan tier rather than API calls.
+- name: Self-Hosted Scan Throughput
+  scope: deployment
+  metric: scans
+  limit: hardware-bound
+  notes: Open-source CLI/Operator scanning is constrained by your own cluster and host resources, not by a vendor limit.
+- name: In-Cluster Component API
+  scope: cluster
+  metric: requests
+  limit: cluster-bound
+  notes: OpenAPI/Swagger-documented Operator component APIs run inside your cluster; throughput is bounded by your resources.
+policies:
+- name: Backoff Strategy
+  description: Clients of the ARMO Platform Customer API should implement exponential backoff with jitter and honor Retry-After on 429 responses.
+- name: Scheduled Scanning
+  description: Operator and registry scans run on configurable cron schedules; tune frequency to control load rather than relying on a request cap.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

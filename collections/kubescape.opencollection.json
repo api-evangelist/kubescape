@@ -1,0 +1,100 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ARMO Platform Customer API (Kubescape)",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "apikey": { "key": "X-API-KEY", "value": "{{apiKey}}", "in": "header" }
+    }
+  },
+  "items": [
+    {
+      "info": { "name": "Posture & Compliance", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get framework scan summaries", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.armosec.io/api/v1/posture/frameworks", "body": { "type": "json", "data": "{ \"pageSize\": 50, \"pageNum\": 0 }" } },
+          "docs": "Compliance scan summaries per framework (NSA-CISA, MITRE, CIS)."
+        },
+        {
+          "info": { "name": "Get control run results", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.armosec.io/api/v1/posture/controls", "body": { "type": "json", "data": "{ \"pageSize\": 50, \"pageNum\": 0 }" } },
+          "docs": "Per-control run results (Kubescape controls C-0001..C-0292)."
+        },
+        {
+          "info": { "name": "List affected resources", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.armosec.io/api/v1/posture/resources", "body": { "type": "json", "data": "{ \"pageSize\": 50, \"pageNum\": 0 }" } },
+          "docs": "Kubernetes resources affected by posture control failures."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Vulnerabilities", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Initiate a vulnerability scan", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.armosec.io/api/v1/vulnerability/scan", "body": { "type": "json", "data": "{ \"cluster\": \"\", \"namespace\": \"\" }" } },
+          "docs": "Trigger an image vulnerability scan."
+        },
+        {
+          "info": { "name": "List vulnerabilities", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.armosec.io/api/v1/vulnerabilities/list", "body": { "type": "json", "data": "{ \"pageSize\": 50, \"pageNum\": 0 }" } },
+          "docs": "Scoped list of vulnerabilities including runtime-in-use filtering."
+        },
+        {
+          "info": { "name": "Get CVE details", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.armosec.io/api/v1/vulnerability/scanResults/details", "body": { "type": "json", "data": "{ \"pageSize\": 50, \"pageNum\": 0 }" } },
+          "docs": "Detailed CVE listings for a scan."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Runtime Security", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List runtime incidents", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.armosec.io/api/v1/runtimeIncidents" },
+          "docs": "eBPF-based runtime threat detection incidents."
+        },
+        {
+          "info": { "name": "Get attack chains", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.armosec.io/api/v1/attackChains", "body": { "type": "json", "data": "{}" } },
+          "docs": "Attack path (attack chain) analysis."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Network Policies", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Generate NetworkPolicies", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.armosec.io/api/v1/networkPolicies/generate", "body": { "type": "json", "data": "{}" } },
+          "docs": "Generate least-privilege NetworkPolicies from observed behavior."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Registry & Repository", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Schedule a registry scan", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.armosec.io/api/v1/registry/scan", "body": { "type": "json", "data": "{ \"registryName\": \"\", \"registryProvider\": \"ecr\" }" } },
+          "docs": "Schedule a container registry scan."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Access Keys", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List agent access keys", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.armosec.io/api/v1/authentication/accessKeys" },
+          "docs": "List Agent Access Keys used for X-API-KEY authentication."
+        }
+      ]
+    }
+  ]
+}

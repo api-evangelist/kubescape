@@ -1,0 +1,133 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Kubescape
+providerId: kubescape
+created: '2026-07-11'
+modified: '2026-07-11'
+reconciled: false
+tags:
+- Kubernetes Security
+- Cloud Native Security
+- Container Security
+- Open Source
+- Plans
+description: >-
+  Kubescape has two consumption models. The core Kubescape project - CLI plus
+  in-cluster Operator, including the OpenAPI-documented in-cluster component APIs
+  - is open source (Apache 2.0, CNCF) and free to self-host with no license fee
+  or throughput caps beyond your own infrastructure. ARMO Platform is the
+  commercial multi-cluster, multi-cloud SaaS built on Kubescape and is where the
+  hosted Customer API lives; it offers a Free tier for small environments, a
+  per-worker-node Starter tier, and a negotiated Enterprise tier. Exact
+  ARMO Platform rates should be verified during reconciliation.
+notes: >-
+  ARMO Platform pricing observed at review is driven by the number of worker
+  nodes (and, for larger deployments, vCPUs and support tier). Reported figures:
+  Free up to ~10 worker nodes with ~1 month data retention; Starter around
+  $30 per worker node/month up to ~50 worker nodes / 1 cluster; Enterprise
+  negotiated. Verify current tiers and limits on the ARMO pricing page.
+sources:
+- https://www.armosec.io/pricing/
+- https://kubescape.io/
+- https://github.com/kubescape/kubescape
+- https://hub.armosec.io/reference/customer-api
+plans:
+- id: kubescape-open-source
+  name: Kubescape Open Source (Self-Hosted)
+  type: free
+  description: >-
+    The full open-source Kubescape CLI and in-cluster Operator, Apache 2.0 and
+    a CNCF project. Includes posture/compliance scanning (NSA-CISA, MITRE, CIS),
+    image CVE scanning (Grype), auto-remediation, eBPF runtime threat detection,
+    network policy generation, and the OpenAPI/Swagger-documented in-cluster
+    component APIs. No license fee; you provide the infrastructure.
+  entries:
+  - label: Self-Hosted Usage
+    name: self_hosted_usage
+    type: usage
+    metric: clusters
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: free (open source; you provide infrastructure)
+    userMultiplied: false
+  elements:
+  - name: CLI Scanning
+  - name: In-Cluster Operator
+  - name: Compliance Frameworks
+  - name: Image Vulnerability Scanning
+  - name: Runtime Threat Detection
+  - name: In-Cluster Component APIs
+- id: armo-platform-free
+  name: ARMO Platform - Free
+  type: free
+  description: >-
+    Managed ARMO Platform tier for small environments, reported free up to
+    around 10 worker nodes with roughly one month of data retention. Includes
+    the hosted dashboard and Customer API.
+  entries:
+  - label: Included Worker Nodes
+    name: free_worker_nodes
+    type: usage
+    metric: nodes
+    limit: 10
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0 up to the free-tier node allowance
+    userMultiplied: false
+  elements:
+  - name: Managed Dashboard
+  - name: Customer API Access
+  - name: One Month Data Retention
+- id: armo-platform-starter
+  name: ARMO Platform - Starter
+  type: paid
+  description: >-
+    Per-worker-node managed tier for startups and small teams, reported around
+    $30 per worker node/month, up to roughly 50 worker nodes on a single
+    cluster. Verify current rate and limits on the ARMO pricing page.
+  entries:
+  - label: Worker Node
+    name: starter_worker_node
+    type: usage
+    metric: nodes
+    limit: 50
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: approx $30 per worker node/month (verify on pricing page)
+    userMultiplied: false
+  elements:
+  - name: Managed Dashboard
+  - name: Customer API Access
+  - name: Multi-Cluster (limited)
+  - name: Integrations
+- id: armo-platform-enterprise
+  name: ARMO Platform - Enterprise
+  type: enterprise
+  description: >-
+    Negotiated plan for larger, multi-cluster, multi-cloud deployments. Pricing
+    factors in worker nodes / vCPUs and support tier, with SLAs, extended
+    retention, SSO, and security reviews. Contact ARMO.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Multi-Cluster / Multi-Cloud
+  - name: SSO and RBAC
+  - name: Extended Retention
+  - name: SLAs and Support
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

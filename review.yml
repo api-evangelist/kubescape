@@ -1,0 +1,120 @@
+aid: kubescape
+name: Kubescape
+review:
+  question: Does Kubescape expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-11'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Neither the open-source Kubescape tool
+    nor the hosted ARMO Platform Customer API documents a server-push transport
+    (WebSocket or SSE) to model. The open-source Kubescape is a CLI plus an
+    in-cluster Operator; its in-cluster components expose OpenAPI/Swagger-
+    documented request/response HTTP APIs, not WebSocket. The ARMO Platform
+    Customer API (https://api.armosec.io) is request/response REST over HTTPS.
+    Runtime threat detection is collected in-cluster via eBPF and surfaced by
+    polling REST endpoints (e.g. GET /runtimeIncidents); there is no public
+    streaming socket on ARMO's own API to describe with AsyncAPI.
+findings:
+  summary: |
+    Kubescape does not publish a documented public WebSocket API. Kubescape is
+    an open-source (Apache 2.0) CNCF Kubernetes security platform: a CLI and an
+    in-cluster Operator. The core CLI is not an HTTP API. The in-cluster Operator
+    components (storage, kubevuln, gateway, operator, node-agent) each expose an
+    OpenAPI/Swagger-documented HTTP API reachable only inside the cluster at
+    /openapi/v2/swaggerui, /openapi/v2/rapi, and /openapi/v2/docs - request/
+    response REST, not WebSocket, and not on a fixed public host. The commercial
+    ARMO Platform, built on Kubescape, exposes a hosted Customer API at
+    https://api.armosec.io/api/v1, authenticated with an X-API-KEY Agent Access
+    Key. That API is pure request/response REST over HTTPS covering posture,
+    compliance, vulnerabilities, runtime incidents, attack chains, network
+    policies, and registry/repository scanning. No realtime, bidirectional, or
+    streaming WebSocket (ws:// or wss://) endpoint is documented on either the
+    open-source tool or the ARMO Platform API as of the review date.
+  openSource: |
+    The core Kubescape project is open source (Apache 2.0) and a CNCF incubating
+    project, originally contributed by ARMO (github.com/kubescape). It scans
+    clusters, YAML/Helm/Git configs, and container images (CVEs via Grype),
+    checks NSA-CISA / MITRE ATT&CK / CIS and other frameworks, and provides
+    eBPF-based runtime threat detection through the Operator. ARMO Platform
+    (cloud.armosec.io) is the commercial multi-cluster, multi-cloud SaaS built
+    on Kubescape and is where the hosted Customer API lives.
+  transports:
+    - protocol: CLI
+      scheme: n/a
+      documented: true
+      note: The open-source Kubescape core is a command-line tool (kubescape scan ...), not an HTTP API.
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.armosec.io/api/v1
+      documented: true
+      note: ARMO Platform Customer API. Request/response REST authenticated with X-API-KEY.
+    - protocol: REST
+      scheme: http
+      documented: true
+      note: In-cluster Operator components expose OpenAPI/Swagger HTTP APIs at /openapi/v2/swaggerui, reachable only inside the cluster (no public host).
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented for the Kubescape CLI, Operator components, or the ARMO Platform Customer API as of the review date.
+  endpointsConfirmedRest:
+    - POST   https://api.armosec.io/api/v1/posture/frameworks
+    - POST   https://api.armosec.io/api/v1/posture/controls
+    - POST   https://api.armosec.io/api/v1/posture/controls/sections
+    - POST   https://api.armosec.io/api/v1/posture/resources
+    - POST   https://api.armosec.io/api/v1/vulnerability/scan
+    - POST   https://api.armosec.io/api/v1/vulnerability/scanResults/summary
+    - POST   https://api.armosec.io/api/v1/vulnerability/scanResults/details
+    - POST   https://api.armosec.io/api/v1/vulnerability/severity
+    - POST   https://api.armosec.io/api/v1/vulnerabilities/list
+    - POST   https://api.armosec.io/api/v1/images/list
+    - GET    https://api.armosec.io/api/v1/runtimeIncidents
+    - GET    https://api.armosec.io/api/v1/runtimeIncidents/{guid}/alerts
+    - POST   https://api.armosec.io/api/v1/runtimeIncidents/{guid}/resolve
+    - POST   https://api.armosec.io/api/v1/attackChains
+    - GET    https://api.armosec.io/api/v1/securityRisks
+    - GET    https://api.armosec.io/api/v1/networkPolicies
+    - POST   https://api.armosec.io/api/v1/networkPolicies/generate
+    - POST   https://api.armosec.io/api/v1/seccompProfiles/generate
+    - POST   https://api.armosec.io/api/v1/registry/scan
+    - POST   https://api.armosec.io/api/v1/repositoryPosture/failedControls
+    - GET    https://api.armosec.io/api/v1/authentication/accessKeys
+    - POST   https://api.armosec.io/api/v1/authentication/accessKeys
+    - DELETE https://api.armosec.io/api/v1/authentication/accessKeys/{guid}
+  endpointsModeled: |
+    Endpoint PATHS above are taken from the public ARMO Customer API reference
+    (hub.armosec.io/reference/customer-api). The exact base path segment
+    (/api/v1) and the request/response JSON schemas in the accompanying OpenAPI
+    are honestly modeled, not copied from a published machine-readable spec. The
+    open-source in-cluster component APIs are documented via Swagger only inside
+    a running cluster, so no fixed public endpoints exist to confirm from
+    outside; they are represented, not called.
+sources:
+  - url: https://hub.armosec.io/reference/customer-api
+    type: APIReference
+    note: ARMO Platform Customer API reference; source of the REST endpoint paths above.
+  - url: https://hub.armosec.io/docs/armo-swagger-api
+    type: Documentation
+    note: ARMO OpenAPI / Swagger reference for the hosted Customer API.
+  - url: https://hub.armosec.io/docs/authentication
+    type: Documentation
+    note: X-API-KEY Agent Access Key authentication.
+  - url: https://www.armosec.io/blog/introducing-kubescape-open-api-framework/
+    type: Documentation
+    note: Open-source in-cluster components expose OpenAPI/Swagger UIs at /openapi/v2/swaggerui - in-cluster, request/response, not WebSocket.
+  - url: https://kubescape.io/docs/
+    type: Documentation
+    note: Kubescape is a CLI plus in-cluster Operator; no hosted public REST endpoint or WebSocket for the open-source tool.
+  - url: https://github.com/kubescape/kubescape
+    type: SourceCode
+    note: Open-source (Apache 2.0) CNCF Kubernetes security platform.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists on either the open-source Kubescape
+    tool or the hosted ARMO Platform Customer API. Both public HTTP surfaces are
+    request/response REST (the ARMO Customer API over HTTPS; the in-cluster
+    Operator components over in-cluster HTTP with Swagger docs). No AsyncAPI
+    document was created because there is no server-push transport to model.

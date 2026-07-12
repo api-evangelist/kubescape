@@ -1,0 +1,22 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/kubescape-openapi.yml
+summary:
+  types:
+  - apiKey
+schemes:
+- name: apiKeyAuth
+  type: apiKey
+  in: header
+  keyName: X-API-KEY
+  description: >-
+    ARMO Platform Customer API requests are authenticated with an Agent Access
+    Key generated in ARMO Platform under Settings > Agent Access Keys, sent in
+    the `X-API-KEY` request header. OAuth2 / OpenID Connect login is used for
+    interactive console sessions. The open-source Kubescape CLI authenticates to
+    ARMO for result submission with an account/access key via
+    `kubescape scan --server api.armosec.io`; the in-cluster Operator component
+    APIs are reachable inside the cluster and are not exposed publicly.
+  sources:
+  - https://hub.armosec.io/docs/authentication
+  - openapi/kubescape-openapi.yml

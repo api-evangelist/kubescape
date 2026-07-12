@@ -1,0 +1,216 @@
+aid: kubescape
+url: https://raw.githubusercontent.com/api-evangelist/kubescape/refs/heads/main/apis.yml
+name: Kubescape
+kind: organization
+description: Kubescape is an open-source (Apache 2.0) Kubernetes security platform and
+  CNCF incubating project, originally contributed by ARMO. It provides risk analysis,
+  security and compliance posture scanning, misconfiguration detection, image and
+  runtime vulnerability scanning, and eBPF-based runtime threat detection across the
+  IDE, CI/CD pipelines, and live clusters. The core Kubescape is a CLI and an
+  in-cluster Operator whose components expose OpenAPI/Swagger-documented HTTP APIs
+  in-cluster (there is no single hosted public REST endpoint for the open-source
+  tool). ARMO Platform is the commercial multi-cluster, multi-cloud SaaS built on
+  Kubescape and exposes a documented hosted Customer API (base https://api.armosec.io)
+  for posture, compliance, vulnerabilities, runtime incidents, attack paths, network
+  policies, and registry/repository scanning, authenticated with an X-API-KEY access
+  key.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Kubernetes Security
+- Cloud Native Security
+- Container Security
+- DevSecOps
+- Kubernetes
+- Vulnerability Scanning
+- Compliance
+- Runtime Security
+- CNCF
+- Open Source
+created: '2026-07-11'
+modified: '2026-07-11'
+specificationVersion: '0.19'
+apis:
+- aid: kubescape:kubescape-posture-compliance-api
+  name: Kubescape Posture & Compliance API
+  tags:
+  - Kubernetes Security
+  - Compliance
+  - Posture
+  - Frameworks
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://hub.armosec.io/reference/customer-api
+  baseURL: https://api.armosec.io/api/v1
+  properties:
+  - url: https://hub.armosec.io/docs/armo-swagger-api
+    type: Documentation
+  - url: https://hub.armosec.io/reference/customer-api
+    type: APIReference
+  - url: openapi/kubescape-openapi.yml
+    type: OpenAPI
+  - url: collections/kubescape.postman_collection.json
+    type: PostmanCollection
+  - url: collections/kubescape.opencollection.json
+    type: OpenCollection
+  description: Retrieve compliance posture across NSA-CISA, MITRE ATT&CK, CIS, and other
+    frameworks - framework scan summaries, per-control run results, framework
+    subsections, and the affected Kubernetes resources for each failed control (the
+    200+ Kubescape controls, C-0001 through C-0292). Endpoint paths are documented in
+    the ARMO Customer API; request/response schemas here are honestly modeled.
+- aid: kubescape:kubescape-vulnerabilities-api
+  name: Kubescape Vulnerabilities API
+  tags:
+  - Container Security
+  - Vulnerabilities
+  - CVE
+  - Image Scanning
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://hub.armosec.io/reference/customer-api
+  baseURL: https://api.armosec.io/api/v1
+  properties:
+  - url: https://hub.armosec.io/reference/customer-api
+    type: APIReference
+  - url: openapi/kubescape-openapi.yml
+    type: OpenAPI
+  - url: collections/kubescape.postman_collection.json
+    type: PostmanCollection
+  - url: collections/kubescape.opencollection.json
+    type: OpenCollection
+  description: Initiate image vulnerability scans and read results - scan summaries and
+    detailed CVE listings, severity metrics, top and over-time vulnerability trends,
+    and scoped views by vulnerability, image, workload, or component, including the
+    "Vulnerabilities In Use" (runtime-observed) analysis. CVE detection is powered by
+    Grype in the open-source engine.
+- aid: kubescape:kubescape-runtime-security-api
+  name: Kubescape Runtime Security API
+  tags:
+  - Runtime Security
+  - Threat Detection
+  - DevSecOps
+  - Attack Paths
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://hub.armosec.io/reference/customer-api
+  baseURL: https://api.armosec.io/api/v1
+  properties:
+  - url: https://hub.armosec.io/reference/customer-api
+    type: APIReference
+  - url: openapi/kubescape-openapi.yml
+    type: OpenAPI
+  - url: collections/kubescape.postman_collection.json
+    type: PostmanCollection
+  - url: collections/kubescape.opencollection.json
+    type: OpenCollection
+  description: Read and triage eBPF-based runtime threat detection output - list runtime
+    incidents and their alerts, group incidents by severity, request incident
+    explanations, resolve or unresolve incidents (false positive / suspicious), and
+    read attack-chain (attack path) analysis and prioritized security risks.
+- aid: kubescape:kubescape-network-policies-api
+  name: Kubescape Network Policies API
+  tags:
+  - Cloud Native Security
+  - Network Policy
+  - Seccomp
+  - Hardening
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://hub.armosec.io/reference/customer-api
+  baseURL: https://api.armosec.io/api/v1
+  properties:
+  - url: https://hub.armosec.io/reference/customer-api
+    type: APIReference
+  - url: openapi/kubescape-openapi.yml
+    type: OpenAPI
+  - url: collections/kubescape.postman_collection.json
+    type: PostmanCollection
+  - url: collections/kubescape.opencollection.json
+    type: OpenCollection
+  description: Generate and retrieve least-privilege Kubernetes NetworkPolicies and
+    seccomp profiles derived from observed application behavior (the Bill of Behavior),
+    for hardening workloads based on how they actually communicate and syscall.
+- aid: kubescape:kubescape-registry-repository-scanning-api
+  name: Kubescape Registry & Repository Scanning API
+  tags:
+  - Container Security
+  - DevSecOps
+  - Registry Scanning
+  - CI/CD
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://hub.armosec.io/reference/customer-api
+  baseURL: https://api.armosec.io/api/v1
+  properties:
+  - url: https://hub.armosec.io/reference/customer-api
+    type: APIReference
+  - url: openapi/kubescape-openapi.yml
+    type: OpenAPI
+  - url: collections/kubescape.postman_collection.json
+    type: PostmanCollection
+  - url: collections/kubescape.opencollection.json
+    type: OpenCollection
+  description: Schedule and manage container-registry scans (ECR, GAR, ACR, Harbor,
+    Quay, Nexus, GitLab) and read Git repository posture - failed controls, scanned
+    files, repositories, and affected resources - to shift Kubernetes security left
+    into CI/CD pipelines.
+- aid: kubescape:kubescape-access-keys-api
+  name: Kubescape Access Keys API
+  tags:
+  - Authentication
+  - Access Keys
+  - DevSecOps
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://hub.armosec.io/docs/authentication
+  baseURL: https://api.armosec.io/api/v1
+  properties:
+  - url: https://hub.armosec.io/docs/authentication
+    type: Documentation
+  - url: https://hub.armosec.io/reference/customer-api
+    type: APIReference
+  - url: openapi/kubescape-openapi.yml
+    type: OpenAPI
+  description: Create, list, retrieve, and revoke the Agent Access Keys used to
+    authenticate ARMO Platform Customer API requests via the X-API-KEY header, plus
+    manage posture and vulnerability exception policies.
+- aid: kubescape:kubescape-in-cluster-component-api
+  name: Kubescape In-Cluster Component API (Open Source)
+  tags:
+  - Kubernetes Security
+  - Open Source
+  - Operator
+  - OpenAPI
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.armosec.io/blog/introducing-kubescape-open-api-framework/
+  baseURL: http://<service-ip>:<service-port>
+  properties:
+  - url: https://www.armosec.io/blog/introducing-kubescape-open-api-framework/
+    type: Documentation
+  - url: https://kubescape.io/docs/operator/
+    type: Documentation
+  - url: https://github.com/kubescape
+    type: SourceCode
+  description: The open-source Kubescape Operator's in-cluster components (storage,
+    kubevuln, gateway, operator, node-agent) each expose an OpenAPI/Swagger-documented
+    HTTP API reachable inside the cluster at /openapi/v2/swaggerui, /openapi/v2/rapi,
+    and /openapi/v2/docs. There is no hosted public endpoint - the base URL is the
+    in-cluster Service address, so endpoints are modeled rather than called over a
+    single fixed public host.
+common:
+- type: DomainSecurity
+  url: security/kubescape-domain-security.yml
+- type: Authentication
+  url: authentication/kubescape-authentication.yml
+- type: GitHubOrganization
+  url: https://github.com/kubescape
+- type: LinkedIn
+  url: https://www.linkedin.com/company/armosec
+- type: Website
+  url: https://kubescape.io
+- type: Documentation
+  url: https://kubescape.io/docs/
+- type: Plans
+  url: plans/kubescape-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/kubescape-rate-limits.yml
+- type: FinOps
+  url: finops/kubescape-finops.yml
+- url: https://kubescape.io/blog/
+  type: Blog
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

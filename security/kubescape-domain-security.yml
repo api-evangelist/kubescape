@@ -1,0 +1,43 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: kubescape.io
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 21 10:40:06 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: api.armosec.io
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 22 08:34:19 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+  hsts_include_subdomains: true
+  note: Returns 401 without an X-API-KEY (authenticated API host).
+- host: hub.armosec.io
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 23 17:00:14 2026 GMT
+- host: cloud.armosec.io
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  6 10:45:31 2026 GMT
+- host: armosec.io
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 30 07:14:19 2026 GMT
+domains:
+- domain: armosec.io
+  dnssec: false
+  caa: []
+  spf: true
+  spf_record: v=spf1 include:spf.protection.outlook.com include:_spf.google.com include:5882526.spf04.hubspotemail.net ~all
+  dmarc: true
+  dmarc_policy: quarantine
+- domain: kubescape.io
+  dnssec: false
+  caa: []
+  spf: false
+  dmarc: false

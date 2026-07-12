@@ -1,0 +1,159 @@
+{
+  "info": {
+    "name": "ARMO Platform Customer API (Kubescape)",
+    "description": "Hosted REST API of ARMO Platform, the commercial Kubernetes security SaaS built on the open-source Kubescape project (CNCF, Apache 2.0). Base URL: https://api.armosec.io/api/v1. Authenticated with an Agent Access Key in the X-API-KEY header. Endpoint paths are from the public ARMO Customer API reference; request/response bodies are honestly modeled.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      { "key": "key", "value": "X-API-KEY", "type": "string" },
+      { "key": "value", "value": "{{apiKey}}", "type": "string" },
+      { "key": "in", "value": "header", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://api.armosec.io/api/v1", "type": "string" },
+    { "key": "apiKey", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Posture & Compliance",
+      "item": [
+        {
+          "name": "Get framework scan summaries",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"pageSize\": 50,\n  \"pageNum\": 0\n}" },
+            "url": { "raw": "{{baseUrl}}/posture/frameworks", "host": ["{{baseUrl}}"], "path": ["posture", "frameworks"] },
+            "description": "Compliance scan summaries per framework (NSA-CISA, MITRE, CIS)."
+          }
+        },
+        {
+          "name": "Get control run results",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"pageSize\": 50,\n  \"pageNum\": 0\n}" },
+            "url": { "raw": "{{baseUrl}}/posture/controls", "host": ["{{baseUrl}}"], "path": ["posture", "controls"] },
+            "description": "Per-control run results (Kubescape controls C-0001..C-0292)."
+          }
+        },
+        {
+          "name": "List affected resources",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"pageSize\": 50,\n  \"pageNum\": 0\n}" },
+            "url": { "raw": "{{baseUrl}}/posture/resources", "host": ["{{baseUrl}}"], "path": ["posture", "resources"] },
+            "description": "Kubernetes resources affected by posture control failures."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Vulnerabilities",
+      "item": [
+        {
+          "name": "Initiate a vulnerability scan",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"cluster\": \"\",\n  \"namespace\": \"\"\n}" },
+            "url": { "raw": "{{baseUrl}}/vulnerability/scan", "host": ["{{baseUrl}}"], "path": ["vulnerability", "scan"] },
+            "description": "Trigger an image vulnerability scan."
+          }
+        },
+        {
+          "name": "List vulnerabilities",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"pageSize\": 50,\n  \"pageNum\": 0\n}" },
+            "url": { "raw": "{{baseUrl}}/vulnerabilities/list", "host": ["{{baseUrl}}"], "path": ["vulnerabilities", "list"] },
+            "description": "Scoped list of vulnerabilities including runtime-in-use filtering."
+          }
+        },
+        {
+          "name": "Get CVE details",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"pageSize\": 50,\n  \"pageNum\": 0\n}" },
+            "url": { "raw": "{{baseUrl}}/vulnerability/scanResults/details", "host": ["{{baseUrl}}"], "path": ["vulnerability", "scanResults", "details"] },
+            "description": "Detailed CVE listings for a scan."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Runtime Security",
+      "item": [
+        {
+          "name": "List runtime incidents",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/runtimeIncidents", "host": ["{{baseUrl}}"], "path": ["runtimeIncidents"] },
+            "description": "eBPF-based runtime threat detection incidents."
+          }
+        },
+        {
+          "name": "Get attack chains",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": { "raw": "{{baseUrl}}/attackChains", "host": ["{{baseUrl}}"], "path": ["attackChains"] },
+            "description": "Attack path (attack chain) analysis."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Network Policies",
+      "item": [
+        {
+          "name": "Generate NetworkPolicies",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": { "raw": "{{baseUrl}}/networkPolicies/generate", "host": ["{{baseUrl}}"], "path": ["networkPolicies", "generate"] },
+            "description": "Generate least-privilege NetworkPolicies from observed behavior."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Registry & Repository",
+      "item": [
+        {
+          "name": "Schedule a registry scan",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"registryName\": \"\",\n  \"registryProvider\": \"ecr\"\n}" },
+            "url": { "raw": "{{baseUrl}}/registry/scan", "host": ["{{baseUrl}}"], "path": ["registry", "scan"] },
+            "description": "Schedule a container registry scan."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Access Keys",
+      "item": [
+        {
+          "name": "List agent access keys",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/authentication/accessKeys", "host": ["{{baseUrl}}"], "path": ["authentication", "accessKeys"] },
+            "description": "List Agent Access Keys used for X-API-KEY authentication."
+          }
+        }
+      ]
+    }
+  ]
+}

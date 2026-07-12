@@ -1,0 +1,90 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Kubescape
+providerId: kubescape
+created: '2026-07-11'
+modified: '2026-07-11'
+reconciled: false
+tags:
+- Kubernetes Security
+- Cloud Native Security
+- Container Security
+- Open Source
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Kubescape spend. The open-source Kubescape core (CLI plus
+  in-cluster Operator, Apache 2.0, CNCF) is free - the cost is your own compute
+  for running scans and the Operator's eBPF runtime monitoring, with no vendor
+  invoice. ARMO Platform is the managed offering, billed primarily on the number
+  of protected worker nodes (and, at larger scale, vCPUs and support tier),
+  above a free node allowance. Enterprise agreements cover multi-cluster,
+  multi-cloud deployments with extended retention and SLAs.
+notes: >-
+  ARMO Platform per-node rates are not reconciled here; verify on the ARMO
+  pricing page. For self-hosted open-source deployments the dominant cost is the
+  cluster compute for the Operator and scan jobs rather than any license fee.
+sources:
+- https://www.armosec.io/pricing/
+- https://kubescape.io/
+- https://github.com/kubescape/kubescape
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: ARMO
+serviceCategory: Security and Compliance
+billingModel:
+  pricingCategory: Subscription-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+  - Adjustment
+focusColumns:
+  ServiceName: ARMO Platform
+  ServiceCategory: Security and Compliance
+  ProviderName: ARMO
+  PublisherName: ARMO
+  InvoiceIssuerName: ARMO
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Subscription-Based
+meters:
+- name: worker_nodes
+  description: Protected Kubernetes worker nodes, the primary ARMO Platform billing unit.
+  unit: nodes
+  aggregation: max
+  dimensions:
+  - account
+  - cluster
+- name: clusters
+  description: Connected clusters under management.
+  unit: clusters
+  aggregation: max
+  dimensions:
+  - account
+- name: self_hosted_compute
+  description: Cluster compute for running the open-source Operator and scan jobs (no ARMO invoice).
+  unit: hours
+  aggregation: sum
+  dimensions:
+  - cluster
+principles:
+- name: Visibility
+  description: Track protected worker nodes and clusters per environment; on self-hosted, monitor Operator and scan-job compute cost.
+- name: Allocation
+  description: Map clusters and namespaces to teams so security spend aligns with owning cost centers.
+- name: Optimization
+  description: Right-size the Operator, scope scans to relevant namespaces/registries, and self-host the open-source tool where the managed per-node fee is not justified.
+- name: Accountability
+  description: Assign owners per cluster; review monthly node counts against the ARMO plan allowance or self-hosted compute budget.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
