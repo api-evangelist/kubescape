@@ -191,6 +191,8 @@ apis:
     in-cluster Service address, so endpoints are modeled rather than called over a
     single fixed public host.
 common:
+- type: AgenticAccess
+  url: agentic-access/kubescape-agentic-access.yml
 - type: DomainSecurity
   url: security/kubescape-domain-security.yml
 - type: Authentication
