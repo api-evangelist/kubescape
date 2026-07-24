@@ -1,0 +1,134 @@
+openapi: 3.0.3
+info:
+  title: ARMO Platform Customer API (Kubescape) Access Keys Registry & Repository API
+  description: 'The ARMO Platform Customer API is the hosted REST API of ARMO Platform, the commercial multi-cluster, multi-cloud Kubernetes security SaaS built on the open-source Kubescape project (CNCF, Apache 2.0). It exposes the security posture, compliance, vulnerability, runtime threat detection, network policy, and registry/repository scanning data that Kubescape produces.
+
+    The endpoint paths in this document are taken from the public ARMO Customer API reference (hub.armosec.io/reference/customer-api). Request and response schemas are honestly modeled by API Evangelist to represent typical payloads and are not copied verbatim from a published machine-readable spec; verify exact field names against the live reference before integrating.
+
+    Note on the open-source tool: the core Kubescape CLI is not an HTTP API, and the in-cluster Operator components expose their own OpenAPI/Swagger UIs (/openapi/v2/swaggerui) only inside the cluster - not on this hosted host. This document covers the hosted ARMO Platform Customer API only.'
+  version: '1.0'
+  contact:
+    name: ARMO / Kubescape
+    url: https://www.armosec.io
+  license:
+    name: Apache-2.0 (open-source Kubescape core)
+    url: https://github.com/kubescape/kubescape/blob/master/LICENSE
+servers:
+- url: https://api.armosec.io/api/v1
+  description: ARMO Platform Customer API
+security:
+- apiKeyAuth: []
+tags:
+- name: Registry & Repository
+  description: Registry scans and Git repository posture.
+paths:
+  /registry/scan:
+    post:
+      operationId: scheduleRegistryScan
+      tags:
+      - Registry & Repository
+      summary: Schedule a registry scan
+      description: Schedules a container registry scan (ECR, GAR, ACR, Harbor, Quay, Nexus, GitLab).
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistryScanRequest'
+      responses:
+        '200':
+          description: Registry scan scheduled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanAccepted'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /repositoryPosture/failedControls:
+    post:
+      operationId: getRepositoryFailedControls
+      tags:
+      - Registry & Repository
+      summary: Get repository failed controls
+      requestBody:
+        $ref: '#/components/requestBodies/ListRequest'
+      responses:
+        '200':
+          description: Failed controls for a Git repository.
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    RegistryScanRequest:
+      type: object
+      properties:
+        registryName:
+          type: string
+        registryProvider:
+          type: string
+          enum:
+          - ecr
+          - gar
+          - acr
+          - harbor
+          - quay
+          - nexus
+          - gitlab
+        cron:
+          type: string
+          description: Cron schedule for recurring scans.
+    ScanAccepted:
+      type: object
+      properties:
+        status:
+          type: string
+          example: accepted
+        jobID:
+          type: string
+    ListRequest:
+      type: object
+      description: Query body used across ARMO list endpoints.
+      properties:
+        pageSize:
+          type: integer
+          default: 50
+        pageNum:
+          type: integer
+          default: 0
+        orderBy:
+          type: string
+        innerFilters:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        code:
+          type: integer
+  responses:
+    Unauthorized:
+      description: Missing or invalid X-API-KEY.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  requestBodies:
+    ListRequest:
+      description: Standard ARMO list/query body with pagination, sorting, and field filters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ListRequest'
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+      description: Agent Access Key generated in ARMO Platform under Settings > Agent Access Keys, sent in the X-API-KEY request header.

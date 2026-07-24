@@ -1,0 +1,113 @@
+openapi: 3.0.3
+info:
+  title: ARMO Platform Customer API (Kubescape) Access Keys API
+  description: 'The ARMO Platform Customer API is the hosted REST API of ARMO Platform, the commercial multi-cluster, multi-cloud Kubernetes security SaaS built on the open-source Kubescape project (CNCF, Apache 2.0). It exposes the security posture, compliance, vulnerability, runtime threat detection, network policy, and registry/repository scanning data that Kubescape produces.
+
+    The endpoint paths in this document are taken from the public ARMO Customer API reference (hub.armosec.io/reference/customer-api). Request and response schemas are honestly modeled by API Evangelist to represent typical payloads and are not copied verbatim from a published machine-readable spec; verify exact field names against the live reference before integrating.
+
+    Note on the open-source tool: the core Kubescape CLI is not an HTTP API, and the in-cluster Operator components expose their own OpenAPI/Swagger UIs (/openapi/v2/swaggerui) only inside the cluster - not on this hosted host. This document covers the hosted ARMO Platform Customer API only.'
+  version: '1.0'
+  contact:
+    name: ARMO / Kubescape
+    url: https://www.armosec.io
+  license:
+    name: Apache-2.0 (open-source Kubescape core)
+    url: https://github.com/kubescape/kubescape/blob/master/LICENSE
+servers:
+- url: https://api.armosec.io/api/v1
+  description: ARMO Platform Customer API
+security:
+- apiKeyAuth: []
+tags:
+- name: Access Keys
+  description: Agent access keys and exception policies.
+paths:
+  /authentication/accessKeys:
+    get:
+      operationId: listAccessKeys
+      tags:
+      - Access Keys
+      summary: List agent access keys
+      responses:
+        '200':
+          description: Access keys.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AccessKey'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createAccessKey
+      tags:
+      - Access Keys
+      summary: Create an agent access key
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccessKey'
+      responses:
+        '200':
+          description: Created access key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessKey'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /authentication/accessKeys/{guid}:
+    delete:
+      operationId: deleteAccessKey
+      tags:
+      - Access Keys
+      summary: Revoke an agent access key
+      parameters:
+      - $ref: '#/components/parameters/Guid'
+      responses:
+        '200':
+          description: Revoked.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    AccessKey:
+      type: object
+      properties:
+        guid:
+          type: string
+        name:
+          type: string
+        expirationDate:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        code:
+          type: integer
+  responses:
+    Unauthorized:
+      description: Missing or invalid X-API-KEY.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    Guid:
+      name: guid
+      in: path
+      required: true
+      description: The GUID of the target resource.
+      schema:
+        type: string
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+      description: Agent Access Key generated in ARMO Platform under Settings > Agent Access Keys, sent in the X-API-KEY request header.
