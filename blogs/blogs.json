@@ -1,0 +1,21 @@
+{
+  "repo": "kubescape",
+  "feeds": [
+    {
+      "source": "https://kubescape.io/feed_rss_created.xml",
+      "feed_url": "https://kubescape.io/feed_rss_created.xml",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://kubescape.io/blog/",
+      "feed_url": "https://kubescape.io/feed_rss_created.xml",
+      "title": "",
+      "saved": 0,
+      "method": "discovered"
+    }
+  ],
+  "post_count": 16,
+  "fetched": "2026-08-01T15:49:00Z"
+}

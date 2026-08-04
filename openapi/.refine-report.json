@@ -1,0 +1,24 @@
+{
+  "provider": "kubescape",
+  "sources": [
+    "kubescape-access-keys-api-openapi.yml",
+    "kubescape-network-policies-api-openapi.yml",
+    "kubescape-posture-compliance-api-openapi.yml",
+    "kubescape-registry-repository-api-openapi.yml",
+    "kubescape-runtime-security-api-openapi.yml",
+    "kubescape-vulnerabilities-api-openapi.yml"
+  ],
+  "outputs": [
+    "kubescape-access-keys-api-openapi.yml",
+    "kubescape-network-policies-api-openapi.yml",
+    "kubescape-posture-compliance-api-openapi.yml",
+    "kubescape-registry-repository-api-openapi.yml",
+    "kubescape-runtime-security-api-openapi.yml",
+    "kubescape-vulnerabilities-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
