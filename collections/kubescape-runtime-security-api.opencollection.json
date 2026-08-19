@@ -1,0 +1,101 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ARMO Platform Customer API (Kubescape) Access Keys Runtime Security API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-KEY",
+      "value": "{{X-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Runtime Security",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List runtime incidents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.armosec.io/api/v1/runtimeIncidents"
+          },
+          "docs": "Returns eBPF-based runtime threat detection incidents."
+        },
+        {
+          "info": {
+            "name": "Get alerts for an incident",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.armosec.io/api/v1/runtimeIncidents/:guid/alerts",
+            "params": [
+              {
+                "name": "guid",
+                "value": "",
+                "type": "path",
+                "description": "The GUID of the target resource."
+              }
+            ]
+          },
+          "docs": "Get alerts for an incident"
+        },
+        {
+          "info": {
+            "name": "Resolve a runtime incident",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.armosec.io/api/v1/runtimeIncidents/:guid/resolve",
+            "params": [
+              {
+                "name": "guid",
+                "value": "",
+                "type": "path",
+                "description": "The GUID of the target resource."
+              }
+            ]
+          },
+          "docs": "Marks an incident as FalsePositive or Suspicious."
+        },
+        {
+          "info": {
+            "name": "Get attack path (attack chain) analysis",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.armosec.io/api/v1/attackChains",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get attack path (attack chain) analysis"
+        },
+        {
+          "info": {
+            "name": "Get prioritized security risks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.armosec.io/api/v1/securityRisks"
+          },
+          "docs": "Get prioritized security risks"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

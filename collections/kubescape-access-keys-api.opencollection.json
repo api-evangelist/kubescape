@@ -1,0 +1,71 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ARMO Platform Customer API (Kubescape) Access Keys API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-KEY",
+      "value": "{{X-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Access Keys",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List agent access keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.armosec.io/api/v1/authentication/accessKeys"
+          },
+          "docs": "List agent access keys"
+        },
+        {
+          "info": {
+            "name": "Create an agent access key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.armosec.io/api/v1/authentication/accessKeys",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an agent access key"
+        },
+        {
+          "info": {
+            "name": "Revoke an agent access key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.armosec.io/api/v1/authentication/accessKeys/:guid",
+            "params": [
+              {
+                "name": "guid",
+                "value": "",
+                "type": "path",
+                "description": "The GUID of the target resource."
+              }
+            ]
+          },
+          "docs": "Revoke an agent access key"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

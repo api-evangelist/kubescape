@@ -1,0 +1,336 @@
+{
+  "item": [
+    {
+      "id": "325094dd-73d5-4bb6-9f85-050ae5cc72a8",
+      "name": "Registry & Repository",
+      "description": {
+        "content": "Registry scans and Git repository posture.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8e2a0499-4172-4a61-89d5-cdeca1d0435f",
+          "name": "Schedule a registry scan",
+          "request": {
+            "name": "Schedule a registry scan",
+            "description": {
+              "content": "Schedules a container registry scan (ECR, GAR, ACR, Harbor, Quay, Nexus, GitLab).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "registry",
+                "scan"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"registryName\": \"<string>\",\n  \"registryProvider\": \"<string>\",\n  \"cron\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ef9ac63d-f8d7-4c93-9515-b8b9c0a6d800",
+              "name": "Registry scan scheduled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registry",
+                    "scan"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"registryName\": \"<string>\",\n  \"registryProvider\": \"<string>\",\n  \"cron\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"accepted\",\n  \"jobID\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d27c6704-9df5-461e-89ec-498a9bc98e7a",
+              "name": "Missing or invalid X-API-KEY.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registry",
+                    "scan"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"registryName\": \"<string>\",\n  \"registryProvider\": \"<string>\",\n  \"cron\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": 7047\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d64e3240-e631-4ce1-a760-6b6d7971c97b",
+          "name": "Get repository failed controls",
+          "request": {
+            "name": "Get repository failed controls",
+            "description": {},
+            "url": {
+              "path": [
+                "repositoryPosture",
+                "failedControls"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pageSize\": 50,\n  \"pageNum\": 0,\n  \"orderBy\": \"<string>\",\n  \"innerFilters\": [\n    {\n      \"key_0\": false,\n      \"key_1\": \"string\",\n      \"key_2\": 701\n    },\n    {\n      \"key_0\": true,\n      \"key_1\": 5365.742837487593,\n      \"key_2\": true,\n      \"key_3\": false\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a5458524-0932-4b5d-8b97-227ef2ddf927",
+              "name": "Failed controls for a Git repository.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "repositoryPosture",
+                    "failedControls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f1f8bb3-8d21-4376-ab44-2932398cb982",
+              "name": "Missing or invalid X-API-KEY.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "repositoryPosture",
+                    "failedControls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": 7047\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.armosec.io/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-KEY"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a86e7d3d-2c69-4734-b6f1-c42ad1a3e9f8",
+    "name": "ARMO Platform Customer API (Kubescape) Access Keys Registry & Repository API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The ARMO Platform Customer API is the hosted REST API of ARMO Platform, the commercial multi-cluster, multi-cloud Kubernetes security SaaS built on the open-source Kubescape project (CNCF, Apache 2.0). It exposes the security posture, compliance, vulnerability, runtime threat detection, network policy, and registry/repository scanning data that Kubescape produces.\nThe endpoint paths in this document are taken from the public ARMO Customer API reference (hub.armosec.io/reference/customer-api). Request and response schemas are honestly modeled by API Evangelist to represent typical payloads and are not copied verbatim from a published machine-readable spec; verify exact field names against the live reference before integrating.\nNote on the open-source tool: the core Kubescape CLI is not an HTTP API, and the in-cluster Operator components expose their own OpenAPI/Swagger UIs (/openapi/v2/swaggerui) only inside the cluster - not on this hosted host. This document covers the hosted ARMO Platform Customer API only.\n\nContact Support:\n Name: ARMO / Kubescape",
+      "type": "text/plain"
+    }
+  }
+}

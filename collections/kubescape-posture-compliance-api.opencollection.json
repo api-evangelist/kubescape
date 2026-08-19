@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ARMO Platform Customer API (Kubescape) Access Keys Posture & Compliance API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-KEY",
+      "value": "{{X-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Posture & Compliance",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get framework scan summaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.armosec.io/api/v1/posture/frameworks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns compliance scan summaries per framework (NSA-CISA, MITRE, CIS, SOC2, and others)."
+        },
+        {
+          "info": {
+            "name": "Get control run results",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.armosec.io/api/v1/posture/controls",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns per-control run results with pagination. Each control is one of the 200+ Kubescape controls (C-0001..C-0292)."
+        },
+        {
+          "info": {
+            "name": "Get framework subsection summaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.armosec.io/api/v1/posture/controls/sections",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns summaries for the subsections of a compliance framework."
+        },
+        {
+          "info": {
+            "name": "List affected resources",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.armosec.io/api/v1/posture/resources",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns the Kubernetes resources affected by posture control failures."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

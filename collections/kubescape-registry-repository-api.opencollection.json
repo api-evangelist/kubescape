@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ARMO Platform Customer API (Kubescape) Access Keys Registry & Repository API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-KEY",
+      "value": "{{X-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Registry & Repository",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Schedule a registry scan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.armosec.io/api/v1/registry/scan",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Schedules a container registry scan (ECR, GAR, ACR, Harbor, Quay, Nexus, GitLab)."
+        },
+        {
+          "info": {
+            "name": "Get repository failed controls",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.armosec.io/api/v1/repositoryPosture/failedControls",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get repository failed controls"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
