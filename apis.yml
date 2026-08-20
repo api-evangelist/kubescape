@@ -38,6 +38,17 @@ tags:
 - Compliance
 - Runtime Security
 - CNCF
+- Open-Source
+tags_raw:
+- Kubernetes Security
+- Cloud Native Security
+- Container Security
+- DevSecOps
+- Kubernetes
+- Vulnerability Scanning
+- Compliance
+- Runtime Security
+- CNCF
 - Open Source
 created: '2026-07-11'
 modified: '2026-07-11'
@@ -46,6 +57,11 @@ apis:
 - aid: kubescape:kubescape-in-cluster-component-api
   name: Kubescape In-Cluster Component API (Open Source)
   tags:
+  - Kubernetes Security
+  - Open-Source
+  - Operator
+  - OpenAPI
+  tags_raw:
   - Kubernetes Security
   - Open Source
   - Operator
