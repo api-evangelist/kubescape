@@ -14,6 +14,18 @@ description: Kubescape is an open-source (Apache 2.0) Kubernetes security platfo
   for posture, compliance, vulnerabilities, runtime incidents, attack paths, network
   policies, and registry/repository scanning, authenticated with an X-API-KEY access
   key.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
