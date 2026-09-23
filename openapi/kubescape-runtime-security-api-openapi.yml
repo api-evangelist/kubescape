@@ -1,11 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: ARMO Platform Customer API (Kubescape) Access Keys Runtime Security API
-  description: 'The ARMO Platform Customer API is the hosted REST API of ARMO Platform, the commercial multi-cluster, multi-cloud Kubernetes security SaaS built on the open-source Kubescape project (CNCF, Apache 2.0). It exposes the security posture, compliance, vulnerability, runtime threat detection, network policy, and registry/repository scanning data that Kubescape produces.
-
-    The endpoint paths in this document are taken from the public ARMO Customer API reference (hub.armosec.io/reference/customer-api). Request and response schemas are honestly modeled by API Evangelist to represent typical payloads and are not copied verbatim from a published machine-readable spec; verify exact field names against the live reference before integrating.
-
-    Note on the open-source tool: the core Kubescape CLI is not an HTTP API, and the in-cluster Operator components expose their own OpenAPI/Swagger UIs (/openapi/v2/swaggerui) only inside the cluster - not on this hosted host. This document covers the hosted ARMO Platform Customer API only.'
+  title: ARMO Platform Customer API (Kubescape) Runtime Security API
+  description: The ARMO Platform Customer API is the hosted REST API of ARMO Platform, the commercial multi-cluster, multi-cloud Kubernetes security SaaS built on the open-source Kubescape project (CNCF, Apache 2.0).
   version: '1.0'
   contact:
     name: ARMO / Kubescape
@@ -106,21 +102,13 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Missing or invalid X-API-KEY.
+  requestBodies:
+    ListRequest:
+      description: Standard ARMO list/query body with pagination, sorting, and field filters.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    Guid:
-      name: guid
-      in: path
-      required: true
-      description: The GUID of the target resource.
-      schema:
-        type: string
+            $ref: '#/components/schemas/ListRequest'
   schemas:
     ListRequest:
       type: object
@@ -175,13 +163,21 @@ components:
           type: string
         code:
           type: integer
-  requestBodies:
-    ListRequest:
-      description: Standard ARMO list/query body with pagination, sorting, and field filters.
+  parameters:
+    Guid:
+      name: guid
+      in: path
+      required: true
+      description: The GUID of the target resource.
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid X-API-KEY.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ListRequest'
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKeyAuth:
       type: apiKey

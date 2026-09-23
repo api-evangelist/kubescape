@@ -1,0 +1,26 @@
+# Front Door AI Index — kubescape — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: kubescape
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: kubescape.io
+  final_host: kubescape.io
+  ownership: own
+  owner: kubescape
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 1
+  host_score: 1
+  density: 1.2
+  words: 832
+  tiers:
+    agentic: 1
+    core: 0
+    model: 0
+  ambiguous: 3
+  top_terms:
+    agent: 3
+    MCP: 1
