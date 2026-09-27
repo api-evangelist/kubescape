@@ -136,6 +136,13 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid X-API-KEY.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     ScanAccepted:
       type: object
@@ -145,23 +152,6 @@ components:
           example: accepted
         jobID:
           type: string
-    ListRequest:
-      type: object
-      description: Query body used across ARMO list endpoints.
-      properties:
-        pageSize:
-          type: integer
-          default: 50
-        pageNum:
-          type: integer
-          default: 0
-        orderBy:
-          type: string
-        innerFilters:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
     Vulnerability:
       type: object
       properties:
@@ -185,6 +175,30 @@ components:
         isRelevant:
           type: boolean
           description: Whether the vulnerability is in a component observed in use at runtime.
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        code:
+          type: integer
+    ListRequest:
+      type: object
+      description: Query body used across ARMO list endpoints.
+      properties:
+        pageSize:
+          type: integer
+          default: 50
+        pageNum:
+          type: integer
+          default: 0
+        orderBy:
+          type: string
+        innerFilters:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
     ScanRequest:
       type: object
       properties:
@@ -194,13 +208,6 @@ components:
           type: string
         imageTag:
           type: string
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        code:
-          type: integer
   requestBodies:
     ListRequest:
       description: Standard ARMO list/query body with pagination, sorting, and field filters.
@@ -208,13 +215,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ListRequest'
-  responses:
-    Unauthorized:
-      description: Missing or invalid X-API-KEY.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKeyAuth:
       type: apiKey

@@ -106,14 +106,27 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  requestBodies:
-    ListRequest:
-      description: Standard ARMO list/query body with pagination, sorting, and field filters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ListRequest'
   schemas:
+    FrameworkSummary:
+      type: object
+      properties:
+        name:
+          type: string
+          example: cis-v1.10.0
+        complianceScore:
+          type: number
+          format: float
+        failedControls:
+          type: integer
+        totalControls:
+          type: integer
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        code:
+          type: integer
     ListRequest:
       type: object
       description: Query body used across ARMO list endpoints.
@@ -145,19 +158,6 @@ components:
           type: string
         cluster:
           type: string
-    FrameworkSummary:
-      type: object
-      properties:
-        name:
-          type: string
-          example: cis-v1.10.0
-        complianceScore:
-          type: number
-          format: float
-        failedControls:
-          type: integer
-        totalControls:
-          type: integer
     ControlResult:
       type: object
       properties:
@@ -182,13 +182,6 @@ components:
           - skipped
         affectedResourcesCount:
           type: integer
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        code:
-          type: integer
   responses:
     Unauthorized:
       description: Missing or invalid X-API-KEY.
@@ -196,6 +189,13 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  requestBodies:
+    ListRequest:
+      description: Standard ARMO list/query body with pagination, sorting, and field filters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ListRequest'
   securitySchemes:
     apiKeyAuth:
       type: apiKey

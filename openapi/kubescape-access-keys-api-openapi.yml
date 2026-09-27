@@ -68,29 +68,7 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Missing or invalid X-API-KEY.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    Guid:
-      name: guid
-      in: path
-      required: true
-      description: The GUID of the target resource.
-      schema:
-        type: string
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        code:
-          type: integer
     AccessKey:
       type: object
       properties:
@@ -101,6 +79,28 @@ components:
         expirationDate:
           type: string
           format: date-time
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        code:
+          type: integer
+  parameters:
+    Guid:
+      name: guid
+      in: path
+      required: true
+      description: The GUID of the target resource.
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid X-API-KEY.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKeyAuth:
       type: apiKey
