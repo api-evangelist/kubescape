@@ -72,6 +72,13 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        code:
+          type: integer
     ListRequest:
       type: object
       description: Query body used across ARMO list endpoints.
@@ -89,20 +96,6 @@ components:
           items:
             type: object
             additionalProperties: true
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        code:
-          type: integer
-  requestBodies:
-    ListRequest:
-      description: Standard ARMO list/query body with pagination, sorting, and field filters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ListRequest'
   responses:
     Unauthorized:
       description: Missing or invalid X-API-KEY.
@@ -110,6 +103,13 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  requestBodies:
+    ListRequest:
+      description: Standard ARMO list/query body with pagination, sorting, and field filters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ListRequest'
   securitySchemes:
     apiKeyAuth:
       type: apiKey

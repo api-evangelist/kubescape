@@ -107,26 +107,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    FrameworkSummary:
-      type: object
-      properties:
-        name:
-          type: string
-          example: cis-v1.10.0
-        complianceScore:
-          type: number
-          format: float
-        failedControls:
-          type: integer
-        totalControls:
-          type: integer
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        code:
-          type: integer
     ListRequest:
       type: object
       description: Query body used across ARMO list endpoints.
@@ -144,20 +124,13 @@ components:
           items:
             type: object
             additionalProperties: true
-    AffectedResource:
+    Error:
       type: object
       properties:
-        resourceID:
+        error:
           type: string
-        kind:
-          type: string
-          example: Deployment
-        namespace:
-          type: string
-        name:
-          type: string
-        cluster:
-          type: string
+        code:
+          type: integer
     ControlResult:
       type: object
       properties:
@@ -182,13 +155,33 @@ components:
           - skipped
         affectedResourcesCount:
           type: integer
-  responses:
-    Unauthorized:
-      description: Missing or invalid X-API-KEY.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    AffectedResource:
+      type: object
+      properties:
+        resourceID:
+          type: string
+        kind:
+          type: string
+          example: Deployment
+        namespace:
+          type: string
+        name:
+          type: string
+        cluster:
+          type: string
+    FrameworkSummary:
+      type: object
+      properties:
+        name:
+          type: string
+          example: cis-v1.10.0
+        complianceScore:
+          type: number
+          format: float
+        failedControls:
+          type: integer
+        totalControls:
+          type: integer
   requestBodies:
     ListRequest:
       description: Standard ARMO list/query body with pagination, sorting, and field filters.
@@ -196,6 +189,13 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ListRequest'
+  responses:
+    Unauthorized:
+      description: Missing or invalid X-API-KEY.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKeyAuth:
       type: apiKey
