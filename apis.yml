@@ -40,6 +40,9 @@ accessModel:
   generated: '2026-07-22'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/kubescape.png
+x-docs-platform: mkdocs
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-10-03
 tags:
 - Kubernetes Security
 - Cloud Native Security
@@ -216,6 +219,9 @@ apis:
   - type: Documentation
     url: https://hub.armosec.io/docs/authentication
 common:
+- type: CapabilityMap
+  url: capabilities/kubescape-capability-edges.yml
+  name: Kubescape Business Capability Map
 - type: AgenticAccess
   url: agentic-access/kubescape-agentic-access.yml
 - type: DomainSecurity
