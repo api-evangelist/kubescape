@@ -57,15 +57,14 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid X-API-KEY.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    ScanAccepted:
-      type: object
-      properties:
-        status:
-          type: string
-          example: accepted
-        jobID:
-          type: string
     ListRequest:
       type: object
       description: Query body used across ARMO list endpoints.
@@ -83,13 +82,6 @@ components:
           items:
             type: object
             additionalProperties: true
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        code:
-          type: integer
     RegistryScanRequest:
       type: object
       properties:
@@ -108,6 +100,21 @@ components:
         cron:
           type: string
           description: Cron schedule for recurring scans.
+    ScanAccepted:
+      type: object
+      properties:
+        status:
+          type: string
+          example: accepted
+        jobID:
+          type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        code:
+          type: integer
   requestBodies:
     ListRequest:
       description: Standard ARMO list/query body with pagination, sorting, and field filters.
@@ -115,13 +122,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ListRequest'
-  responses:
-    Unauthorized:
-      description: Missing or invalid X-API-KEY.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKeyAuth:
       type: apiKey

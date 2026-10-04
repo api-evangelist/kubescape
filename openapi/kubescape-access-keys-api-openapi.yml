@@ -86,6 +86,13 @@ components:
           type: string
         code:
           type: integer
+  responses:
+    Unauthorized:
+      description: Missing or invalid X-API-KEY.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     Guid:
       name: guid
@@ -94,13 +101,6 @@ components:
       description: The GUID of the target resource.
       schema:
         type: string
-  responses:
-    Unauthorized:
-      description: Missing or invalid X-API-KEY.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKeyAuth:
       type: apiKey

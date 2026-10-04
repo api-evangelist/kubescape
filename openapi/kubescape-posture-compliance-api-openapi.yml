@@ -107,23 +107,19 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    ListRequest:
+    FrameworkSummary:
       type: object
-      description: Query body used across ARMO list endpoints.
       properties:
-        pageSize:
-          type: integer
-          default: 50
-        pageNum:
-          type: integer
-          default: 0
-        orderBy:
+        name:
           type: string
-        innerFilters:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
+          example: cis-v1.10.0
+        complianceScore:
+          type: number
+          format: float
+        failedControls:
+          type: integer
+        totalControls:
+          type: integer
     Error:
       type: object
       properties:
@@ -155,6 +151,23 @@ components:
           - skipped
         affectedResourcesCount:
           type: integer
+    ListRequest:
+      type: object
+      description: Query body used across ARMO list endpoints.
+      properties:
+        pageSize:
+          type: integer
+          default: 50
+        pageNum:
+          type: integer
+          default: 0
+        orderBy:
+          type: string
+        innerFilters:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
     AffectedResource:
       type: object
       properties:
@@ -169,26 +182,6 @@ components:
           type: string
         cluster:
           type: string
-    FrameworkSummary:
-      type: object
-      properties:
-        name:
-          type: string
-          example: cis-v1.10.0
-        complianceScore:
-          type: number
-          format: float
-        failedControls:
-          type: integer
-        totalControls:
-          type: integer
-  requestBodies:
-    ListRequest:
-      description: Standard ARMO list/query body with pagination, sorting, and field filters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ListRequest'
   responses:
     Unauthorized:
       description: Missing or invalid X-API-KEY.
@@ -196,6 +189,13 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  requestBodies:
+    ListRequest:
+      description: Standard ARMO list/query body with pagination, sorting, and field filters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ListRequest'
   securitySchemes:
     apiKeyAuth:
       type: apiKey
