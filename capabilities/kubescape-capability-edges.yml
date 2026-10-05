@@ -1,0 +1,45 @@
+slug: kubescape
+provider: Kubescape
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Vulnerabilities
+  spec_file: kubescape-vulnerabilities-api-openapi.yml
+  capability_id: BC-620.40
+  capability_id_l1: BC-620
+  capability_name: Vulnerability Management
+  confidence: 0.94
+  evidence: POST /vulnerability/scan 'Initiate a vulnerability scan'; 'Get detailed CVE listings'; schema
+    Vulnerability
+  reason: Operations initiate vulnerability scans and expose CVE findings and severity metrics for container
+    images — explicit vulnerability management.
+- tag: Runtime Security
+  spec_file: kubescape-runtime-security-api-openapi.yml
+  capability_id: BC-620.30
+  capability_id_l1: BC-620
+  capability_name: Threat Detection & Response Management
+  confidence: 0.92
+  evidence: GET /runtimeIncidents 'List runtime incidents'; 'Get alerts for an incident'; 'Resolve a runtime
+    incident'; 'Get attack path (attack chain) analysis'
+  reason: Runtime threat detection, security alerting, incident triage/resolution and attack-path analysis
+    is squarely threat detection and response (SOC/IR) for a security platform.
+- tag: Access Keys
+  spec_file: kubescape-access-keys-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: '"Create an agent access key", "Revoke an agent access key", schema "AccessKey" under path
+    /authentication/accessKeys'
+  reason: Issuance and revocation of credentials used to authenticate agents to the security platform
+    — access/credential management. Arguably plumbing, but the operations are explicitly credential lifecycle.
