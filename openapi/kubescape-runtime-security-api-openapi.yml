@@ -109,15 +109,31 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    Guid:
-      name: guid
-      in: path
-      required: true
-      description: The GUID of the target resource.
-      schema:
-        type: string
   schemas:
+    ListRequest:
+      type: object
+      description: Query body used across ARMO list endpoints.
+      properties:
+        pageSize:
+          type: integer
+          default: 50
+        pageNum:
+          type: integer
+          default: 0
+        orderBy:
+          type: string
+        innerFilters:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        code:
+          type: integer
     RuntimeIncident:
       type: object
       properties:
@@ -147,30 +163,14 @@ components:
         creationTime:
           type: string
           format: date-time
-    ListRequest:
-      type: object
-      description: Query body used across ARMO list endpoints.
-      properties:
-        pageSize:
-          type: integer
-          default: 50
-        pageNum:
-          type: integer
-          default: 0
-        orderBy:
-          type: string
-        innerFilters:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        code:
-          type: integer
+  parameters:
+    Guid:
+      name: guid
+      in: path
+      required: true
+      description: The GUID of the target resource.
+      schema:
+        type: string
   requestBodies:
     ListRequest:
       description: Standard ARMO list/query body with pagination, sorting, and field filters.

@@ -136,7 +136,55 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid X-API-KEY.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    ListRequest:
+      type: object
+      description: Query body used across ARMO list endpoints.
+      properties:
+        pageSize:
+          type: integer
+          default: 50
+        pageNum:
+          type: integer
+          default: 0
+        orderBy:
+          type: string
+        innerFilters:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        code:
+          type: integer
+    ScanRequest:
+      type: object
+      properties:
+        cluster:
+          type: string
+        namespace:
+          type: string
+        imageTag:
+          type: string
+    ScanAccepted:
+      type: object
+      properties:
+        status:
+          type: string
+          example: accepted
+        jobID:
+          type: string
     Vulnerability:
       type: object
       properties:
@@ -160,54 +208,6 @@ components:
         isRelevant:
           type: boolean
           description: Whether the vulnerability is in a component observed in use at runtime.
-    ListRequest:
-      type: object
-      description: Query body used across ARMO list endpoints.
-      properties:
-        pageSize:
-          type: integer
-          default: 50
-        pageNum:
-          type: integer
-          default: 0
-        orderBy:
-          type: string
-        innerFilters:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-    ScanAccepted:
-      type: object
-      properties:
-        status:
-          type: string
-          example: accepted
-        jobID:
-          type: string
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        code:
-          type: integer
-    ScanRequest:
-      type: object
-      properties:
-        cluster:
-          type: string
-        namespace:
-          type: string
-        imageTag:
-          type: string
-  responses:
-    Unauthorized:
-      description: Missing or invalid X-API-KEY.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   requestBodies:
     ListRequest:
       description: Standard ARMO list/query body with pagination, sorting, and field filters.
