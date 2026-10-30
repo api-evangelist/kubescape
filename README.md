@@ -1,4 +1,4 @@
-# Kubescape (kubescape)
+# Kubescape
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,98 +64,129 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Kubescape is an open-source (Apache 2.0) Kubernetes security platform and CNCF incubating project, originally contributed by ARMO. It provides risk analysis, security and compliance posture scanning (NSA-CISA, MITRE ATT&CK, CIS, and more), misconfiguration detection, image and runtime vulnerability scanning (CVEs via Grype), and eBPF-based runtime threat detection across the IDE, CI/CD pipelines, and live clusters.
+Kubescape is an open-source (Apache 2.0) Kubernetes security platform and CNCF incubating project, originally contributed by ARMO. It provides risk analysis, security and compliance posture scanning, misconfiguration detection, image and runtime vulnerability scanning, and eBPF-based runtime threat detection across the IDE, CI/CD pipelines, and live clusters. The core Kubescape is a CLI and an in-cluster Operator whose components expose OpenAPI/Swagger-documented HTTP APIs in-cluster (there is no single hosted public REST endpoint for the open-source tool). ARMO Platform is the commercial multi-cluster, multi-cloud SaaS built on Kubescape and exposes a documented hosted Customer API (base https://api.armosec.io) for posture, compliance, vulnerabilities, runtime incidents, attack paths, network policies, and registry/repository scanning, authenticated with an X-API-KEY access key.
 
-**Access model — read this first.** The core Kubescape is a **CLI** and an in-cluster **Operator**, not a single hosted HTTP API:
+**Areas:** Kubernetes Security · Cloud Native Security · Container Security · DevSecOps · Kubernetes · Vulnerability Scanning · Compliance · Runtime Security · CNCF · Open Source
 
-- The **CLI** (`kubescape scan ...`) is a command-line tool, not an HTTP API.
-- The in-cluster **Operator** components (storage, kubevuln, gateway, operator, node-agent) each expose an **OpenAPI/Swagger-documented HTTP API reachable only inside the cluster** at `/openapi/v2/swaggerui`, `/openapi/v2/rapi`, and `/openapi/v2/docs`. There is no fixed public host for these, so they are documented (modeled) rather than called over the internet.
-- **ARMO Platform** is the commercial multi-cluster, multi-cloud SaaS built on Kubescape and is where a **hosted public REST API** lives: the **Customer API** at `https://api.armosec.io/api/v1`, authenticated with an Agent Access Key in the `X-API-KEY` header. This is the concrete, callable HTTP surface documented in this entry.
+## Kubescape on APIs.io
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/kubescape/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/kubescape/refs/heads/main/apis.yml)
+Everything profiled for Kubescape is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/kubescape/](https://apis.io/providers/kubescape/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (7)
 
-- Kubernetes Security
-- Cloud Native Security
-- Container Security
-- DevSecOps
-- Kubernetes
-- Vulnerability Scanning
-- Compliance
-- Runtime Security
-- CNCF
-- Open Source
+- [Kubescape In-Cluster Component API (Open Source)](https://apis.io/apis/kubescape/kubescape-in-cluster-component-api/) — The open-source Kubescape Operator's in-cluster components (storage, kubevuln, gateway, operator, node-agent) each expose an OpenAPI/Swagger-documented HTTP…
+- [Kubescape Access Keys API](https://apis.io/apis/kubescape/kubescape-access-keys-api/) — Agent access keys and exception policies.
+- [Kubescape Network Policies API](https://apis.io/apis/kubescape/kubescape-network-policies-api/) — Generated NetworkPolicies and seccomp profiles.
+- [Kubescape Posture & Compliance API](https://apis.io/apis/kubescape/kubescape-posture-compliance-api/) — Framework, control, and resource posture results.
+- [Kubescape Registry & Repository API](https://apis.io/apis/kubescape/kubescape-registry-repository-api/) — Registry scans and Git repository posture.
+- [Kubescape Runtime Security API](https://apis.io/apis/kubescape/kubescape-runtime-security-api/) — Runtime incidents, attack chains, and security risks.
+- [Kubescape Vulnerabilities API](https://apis.io/apis/kubescape/kubescape-vulnerabilities-api/) — Image and workload vulnerability scanning and results.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-07-11
-- **Modified:** 2026-07-11
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Agentic access (1)
 
-The logical APIs below map the ARMO Platform Customer API (hosted) plus the open-source in-cluster component API. Endpoint **paths** come from the public ARMO Customer API reference; request/response **schemas** in the OpenAPI are honestly modeled, not copied from a published machine-readable spec.
+Which operations an agent can call, which act, and which need a human in the loop.
 
-### Kubescape Posture & Compliance API
+- [Kubescape Agentic Access](https://apis.io/agentic-access/kubescape/kubescape-agentic-access/)
 
-Retrieve compliance posture across NSA-CISA, MITRE ATT&CK, CIS, and other frameworks — framework scan summaries, per-control run results (the 200+ Kubescape controls C-0001..C-0292), and affected Kubernetes resources.
+#### Collections (7)
 
-- **Human URL:** [https://hub.armosec.io/reference/customer-api](https://hub.armosec.io/reference/customer-api)
-- **Base URL:** `https://api.armosec.io/api/v1`
+Postman and Open Collection request collections.
 
-### Kubescape Vulnerabilities API
+- [ARMO Platform Customer API (Kubescape)](https://apis.io/collections/kubescape/open-kubescape/)
+- [ARMO Platform Customer API (Kubescape) Access Keys API](https://apis.io/collections/kubescape/open-kubescape-access-keys-api/)
+- [ARMO Platform Customer API (Kubescape) Access Keys Network Policies API](https://apis.io/collections/kubescape/open-kubescape-network-policies-api/)
+- [ARMO Platform Customer API (Kubescape) Access Keys Posture & Compliance API](https://apis.io/collections/kubescape/open-kubescape-posture-compliance-api/)
+- [ARMO Platform Customer API (Kubescape) Access Keys Registry & Repository API](https://apis.io/collections/kubescape/open-kubescape-registry-repository-api/)
+- [ARMO Platform Customer API (Kubescape) Access Keys Runtime Security API](https://apis.io/collections/kubescape/open-kubescape-runtime-security-api/)
+- [ARMO Platform Customer API (Kubescape) Access Keys Vulnerabilities API](https://apis.io/collections/kubescape/open-kubescape-vulnerabilities-api/)
 
-Initiate image vulnerability scans and read results — scan summaries and detailed CVE listings, severity metrics, top and over-time trends, and scoped views by vulnerability, image, or workload, including the "Vulnerabilities In Use" (runtime-observed) analysis.
+#### Security (2)
 
-- **Human URL:** [https://hub.armosec.io/reference/customer-api](https://hub.armosec.io/reference/customer-api)
-- **Base URL:** `https://api.armosec.io/api/v1`
+Authentication, trust centre, and vulnerability disclosure.
 
-### Kubescape Runtime Security API
+- [Kubescape Authentication](https://apis.io/security/kubescape/kubescape-authentication/)
+- [Kubescape Domain Security](https://apis.io/security/kubescape/kubescape-domain-security/)
 
-Read and triage eBPF-based runtime threat detection output — list runtime incidents and alerts, group by severity, resolve/unresolve incidents, and read attack-chain (attack path) analysis and prioritized security risks.
+#### Plans and pricing (1)
 
-- **Human URL:** [https://hub.armosec.io/reference/customer-api](https://hub.armosec.io/reference/customer-api)
-- **Base URL:** `https://api.armosec.io/api/v1`
+Published plans, tiers and prices.
 
-### Kubescape Network Policies API
+- [Kubescape Plans Pricing](https://apis.io/plans/kubescape/kubescape-plans-pricing/)
 
-Generate and retrieve least-privilege Kubernetes NetworkPolicies and seccomp profiles derived from observed application behavior (the Bill of Behavior).
+#### Rate limits (1)
 
-- **Human URL:** [https://hub.armosec.io/reference/customer-api](https://hub.armosec.io/reference/customer-api)
-- **Base URL:** `https://api.armosec.io/api/v1`
+Published request limits.
 
-### Kubescape Registry & Repository Scanning API
+- [Kubescape Rate Limits](https://apis.io/rate-limits/kubescape/kubescape-rate-limits/)
 
-Schedule and manage container-registry scans (ECR, GAR, ACR, Harbor, Quay, Nexus, GitLab) and read Git repository posture, shifting Kubernetes security left into CI/CD pipelines.
+#### FinOps (1)
 
-- **Human URL:** [https://hub.armosec.io/reference/customer-api](https://hub.armosec.io/reference/customer-api)
-- **Base URL:** `https://api.armosec.io/api/v1`
+What the API costs to run, by operation.
 
-### Kubescape Access Keys API
+- [Kubescape Finops](https://apis.io/finops/kubescape/kubescape-finops/)
 
-Create, list, retrieve, and revoke the Agent Access Keys used to authenticate Customer API requests via `X-API-KEY`, plus manage posture and vulnerability exception policies.
+## Where to find this API
 
-- **Human URL:** [https://hub.armosec.io/docs/authentication](https://hub.armosec.io/docs/authentication)
-- **Base URL:** `https://api.armosec.io/api/v1`
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-### Kubescape In-Cluster Component API (Open Source)
-
-The open-source Operator's in-cluster components each expose an OpenAPI/Swagger-documented HTTP API inside the cluster (`/openapi/v2/swaggerui`). There is no hosted public endpoint — endpoints are modeled, not called over a fixed public host.
-
-- **Human URL:** [https://www.armosec.io/blog/introducing-kubescape-open-api-framework/](https://www.armosec.io/blog/introducing-kubescape-open-api-framework/)
-- **Base URL:** `http://<service-ip>:<service-port>`
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/kubescape)
-- [LinkedIn](https://www.linkedin.com/company/armosec)
 - [Website](https://kubescape.io)
 - [Documentation](https://kubescape.io/docs/)
-- [Plans](plans/kubescape-plans-pricing.yml)
-- [Rate Limits](rate-limits/kubescape-rate-limits.yml)
-- [Fin Ops](finops/kubescape-finops.yml)
+- [Blog](https://kubescape.io/blog/)
+- [GitHub](https://github.com/kubescape)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 26.0** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 47.8 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 28.6 |
+| Access clarity | 7.9 |
+
+**Agent readiness 17.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 11.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/kubescape/](https://apis.io/providers/kubescape/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Kubescape: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/kubescape/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
